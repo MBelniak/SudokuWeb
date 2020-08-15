@@ -10,13 +10,14 @@ public class SudokuFiller {
     /**
      * Keeps a fully filled board that represents the actual solution of considered Sudoku board.
      */
-    private SudokuGenerator boardWithSolution;
+    private LinkedList<SudokuCell> boardWithSolution;
     /**
      * Represents a board that will be filled in with some values.
      */
-    private SudokuGenerator boardToFill;
+    private LinkedList<SudokuCell>
+            boardToFill;
 
-    public void setBoardWithSolution(SudokuGenerator boardWithSolution) {
+    public void setBoardWithSolution(LinkedList<SudokuCell> boardWithSolution) {
         this.boardWithSolution = boardWithSolution;
     }
 
@@ -27,33 +28,33 @@ public class SudokuFiller {
      */
     void fillValues()
     {
-        boardToFill = new SudokuGenerator();
+        boardToFill = new SudokuGenerator().getSudokuList();
         SudokuCell cellptr;
         LinkedList<SudokuCell> toShuffle = new LinkedList<>();
-        toShuffle.addAll(boardWithSolution.getSudokuList());
+        toShuffle.addAll(boardWithSolution);
         Collections.shuffle(toShuffle);
         for(SudokuCell cell : toShuffle)
         {
-            cellptr = boardWithSolution.getCellByCoords(new int[]{cell.getX(), cell.getY()});
-            boardToFill.getCellByCoords(new int[]{cell.getX(), cell.getY()}).setFixed_value(cellptr.getFixed_value());
+            cellptr = SudokuCell.getCellByCoords(boardWithSolution, new int[]{cell.getX(), cell.getY()});
+            SudokuCell.getCellByCoords(boardToFill, new int[]{cell.getX(), cell.getY()}).setFixedValue(cellptr.getFixedValue());
             if(checkIfSolutionUnique(boardToFill))
                 break;
         }
     }
 
-    SudokuGenerator getBoardToFill()
+    LinkedList<SudokuCell> getBoardToFill()
     {
         return boardToFill;
     }
 
     /**
      * Uses {@link UniqueChecker} class to check if current configuration of fields makes the board have only one solution.
-     * @param sg {@link SudokuGenerator} object that contains board to check and conduct the algorithm.
+     * @param sudokuCells LinkedList of {@link SudokuCell} that contains board to check and conduct the algorithm.
      * @return true if solution unique, false otherwise.
      */
-    private boolean checkIfSolutionUnique(SudokuGenerator sg)
+    private boolean checkIfSolutionUnique(LinkedList<SudokuCell> sudokuCells)
     {
         UniqueChecker checker = new UniqueChecker();
-        return checker.checkIfSolutionUnique(sg);
+        return checker.checkIfSolutionUnique(sudokuCells);
     }
 }

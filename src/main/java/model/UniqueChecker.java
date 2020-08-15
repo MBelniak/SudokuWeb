@@ -1,5 +1,7 @@
 package model;
 
+import java.util.LinkedList;
+
 /**
  * This class is a small API for checking if given Sudoku board has only one solution.
  * @author Michał Belniak
@@ -21,10 +23,10 @@ public class UniqueChecker {
      * @param boardToCheck {@link SudokuGenerator} object from which to take values.
      * @return true if solution is unique, fallse otherwise.
      */
-    boolean checkIfSolutionUnique(SudokuGenerator boardToCheck) {
-       for (SudokuCell cell : boardToCheck.getSudokuList())
-            if (cell.getFixed_value() != 0) {
-                sudokuAlg.getCellByCoords(new int[]{cell.getX(), cell.getY()}).setFixed_value(cell.getFixed_value());
+    boolean checkIfSolutionUnique(LinkedList<SudokuCell> boardToCheck) {
+       for (SudokuCell cell : boardToCheck)
+            if (cell.getFixedValue() != 0) {
+                SudokuCell.getCellByCoords(boardToCheck, new int[]{cell.getX(), cell.getY()}).setFixedValue(cell.getFixedValue());
             }
 
             return !sudokuAlg.doFillCellsUnique(0);

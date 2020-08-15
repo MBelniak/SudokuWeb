@@ -1,6 +1,7 @@
 package service;
 
 import model.Model;
+import model.SudokuBoard;
 import model.SudokuField;
 import org.springframework.stereotype.Service;
 
@@ -9,16 +10,17 @@ public class SudokuService {
 
     private Model model = new Model();
 
-    public void makeBoard(int diff_level)
-    {
-        model.makeGeneratedBoard(diff_level);
+    private SudokuBoard currentBoard;
+
+    public void makeBoard(int diff_level) throws Model.IncorrectDifficultyException {
+        currentBoard = model.createGeneratedBoard(diff_level);
     }
 
-    public SudokuField[][] getFields()
-    {
-        if(model.getBoard()==null)
+    public SudokuField[][] getFields() throws Model.IncorrectDifficultyException {
+        if(currentBoard == null) {
             makeBoard(0);
-        return model.getBoard().getFields();
+        }
+        return currentBoard.getFields();
     }
 
 }

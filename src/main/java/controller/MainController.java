@@ -13,7 +13,7 @@ import service.SudokuService;
 
 
 @Controller
-public class StartController {
+public class MainController {
 
     @Autowired
     private SudokuService sudokuService;

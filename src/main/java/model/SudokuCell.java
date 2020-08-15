@@ -1,5 +1,6 @@
 package model;
 import java.util.HashSet;
+import java.util.LinkedList;
 
 /**
  * This class is like {@link SudokuField} but additionally, keeps all the neighbouring cells in a set.
@@ -16,6 +17,15 @@ public class SudokuCell extends SudokuField {
     public HashSet<SudokuCell> neighbors;
 
     /**
+     *
+     * @param coords (x,y) of a cell to be returned.
+     * @return cell with (coords[0], coords[1]) coordinates.
+     */
+    public static SudokuCell getCellByCoords(LinkedList<SudokuCell> sudokuCells, int[] coords) {
+        return sudokuCells.get(coords[0] * 9 + coords[1]);
+    }
+
+    /**
      * Initializes a cell with its (x,y) coordinates.
      * @param x x-coo
      * @param y y-coo
@@ -29,13 +39,13 @@ public class SudokuCell extends SudokuField {
 
     /**
      * Adds all naighbours from a passed {@link SudokuGenerator} object's SudokuCell list to {@link #neighbors}.
-     * @param board SudokuGenerator object from which to take neighbours.
+     * @param sudokuCells  LinkedList<SudokuCell> from which to take neighbours.
      */
-    void generateAllNeighbors(SudokuGenerator board)
+    void generateAllNeighbors(LinkedList<SudokuCell> sudokuCells)
     {
         for (int n = 0; n < 9; ++n) {
-            neighbors.add(board.getCellByCoords(new int[]{n, getY()}));
-            neighbors.add(board.getCellByCoords(new int[]{getX(), n}));
+            neighbors.add(getCellByCoords(sudokuCells, new int[]{n, getY()}));
+            neighbors.add(getCellByCoords(sudokuCells, new int[]{getX(), n}));
         }
 
         int iFloor = (getX() / 3) * 3;
@@ -44,7 +54,7 @@ public class SudokuCell extends SudokuField {
 
         for (int n = iFloor; n < iFloor + 3; n++) {
             for (int m = jFloor; m < jFloor + 3; m++) {
-                neighbors.add(board.getCellByCoords(new int[]{n, m}));
+                neighbors.add(getCellByCoords(sudokuCells, new int[]{n, m}));
             }
         }
     }

@@ -18,11 +18,11 @@ public class SudokuField{
     /**
      * Initial value given that can be revealed at the start of a game.
      */
-    private int current_value;
+    private int currentValue;
     /**
      * Value that corresponds to board solution.
      */
-    private int fixed_value;
+    private int fixedValue;
 
     public SudokuField(int x, int y)
     {
@@ -38,19 +38,19 @@ public class SudokuField{
         return y;
     }
 
-    public int getCurrent_value() {
-        return current_value;
+    public int getCurrentValue() {
+        return currentValue;
     }
 
-    public void setCurrent_value(int value) {
-        this.current_value = value;
+    public void setCurrentValue(int value) {
+        this.currentValue = value;
     }
 
-    public int getFixed_value() {
-        return fixed_value;
+    public int getFixedValue() {
+        return fixedValue;
     }
 
-    public void setFixed_value(int fixed_value) {
-        this.fixed_value = fixed_value;
+    public void setFixedValue(int fixedValue) {
+        this.fixedValue = fixedValue;
     }
 }

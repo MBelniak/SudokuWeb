@@ -12,22 +12,6 @@ public class SudokuBoard
      * Represents 81 fields of Sudoku.
      */
     private SudokuField[][] fields;     //all Sudoku fields
-    /**
-     * Keeps the difficulty of current board.
-     */
-    private int difficulty;
-    /**
-     * Keeps difficulty names. First three elements corresponds to files names.
-     */
-    private String[] difficultyNames =
-            {
-            "Latwy",
-            "Sredni",
-            "Trudny",
-            "Losowa plansza latwa",
-            "Losowa plansza srednia",
-            "Losowa plansza trudna"
-            };
 
     /**
      * Initializes each Sudoku field from {@link #fields}.
@@ -42,15 +26,6 @@ public class SudokuBoard
             }
     }
 
-    public String getDifficultyName()
-    {
-        return difficultyNames[difficulty];
-    }
-
-    public void setDifficulty(int difficulty) {
-        this.difficulty = difficulty%6;
-    }
-
     public SudokuField[][] getFields()
     {
         return fields;
@@ -63,9 +38,9 @@ public class SudokuBoard
      * @param values coordinates of a field
      * @see SudokuField
      */
-    public void set_single_field(int x, int y, int values[])
+    public void setSingleField(int x, int y, int values[])
     {
-        fields[x][y].setCurrent_value(values[0]);
-        fields[x][y].setFixed_value(values[1]);
+        fields[x][y].setCurrentValue(values[0]);
+        fields[x][y].setFixedValue(values[1]);
     }
 }
